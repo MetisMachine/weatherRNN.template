@@ -10,14 +10,10 @@ print("created a view of NOAA historial weather data")
 print("pulling historical weather from a single zip code")
 weather_json = skafos.engine.query("SELECT * from weather_noaa WHERE zipcode = 23250").result()
 
-weather_json['data'][0]
-
 # convert to a dataframe
 import pandas as pd
 weather = pd.DataFrame(weather_json['data'])
 weather['date']  = pd.to_datetime(weather['date'])
-
-weather.info()
 
 # fix python crazy with missing values
 weather['precip_total'] = weather['precip_total'].replace('NaN', None, regex=False).fillna(0)
@@ -27,14 +23,13 @@ weather['wind_speed_peak'] = weather['wind_speed_peak'].replace('NaN', None, reg
 
 # # Prep inputs for modeling
 # First we make a numeric time scale, though just having them in order of date is sufficient
-
 day_zero = weather['date'].min()
 
 weather.set_index((weather['date'] - day_zero).apply(lambda d: d.days), inplace=True)
 weather.sort_index(inplace=True)
 
 
-# ## Create features
+## Create features
 # * length of day
 # * average temperature
 # * change in average temperature
@@ -54,7 +49,7 @@ weather_features = weather[
 weather_features.iloc[:6]
 
 
-# ## Normalize inputs for deep learning
+## Normalize inputs for deep learning
 # Most neural networks expect inputs from -1 to 1
 
 weather_norm = weather_features.apply(lambda c: 0.5 * (c - c.mean()) / c.std())
