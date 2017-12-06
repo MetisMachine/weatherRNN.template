@@ -1,4 +1,11 @@
 from skafossdk import *
+
+import torch
+import torch.nn as nn
+from torch.autograd import Variable
+from datetime import datetime
+import pandas as pd
+
 print('initialize the SDK connection')
 skafos = Skafos()
 
@@ -63,14 +70,6 @@ predict_day = weather_x.index[-60]
 
 # # Recurrent Neural Network Model
 # Build a PyTorch model to do time series prediction
-
-import torch
-import torch.nn as nn
-from torch.autograd import Variable
-from datetime import datetime
-import pandas as pd
-import ggplot as gg
-
 
 x_train = torch.autograd.Variable(
     torch.from_numpy(weather_x.loc[:predict_day - 1].as_matrix()).float(), requires_grad=False)
