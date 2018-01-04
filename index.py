@@ -1,5 +1,8 @@
 # # Weather Prediction Example
-# This template shows how to fetch weather data for a particular zip code from the Metis Machine data engine, and then use those data to train a dummy [recurrent neural network](https://en.wikipedia.org/wiki/Recurrent_neural_network) that will predict some aspect of the weather from the historical time series at that location.
+# This template shows how to fetch weather data for a particular zip code
+# from the Metis Machine data engine, 
+# and then use those data to train a dummy 
+# [recurrent neural network](https://en.wikipedia.org/wiki/Recurrent_neural_network) that will predict some aspect of the weather from the historical time series at that location.
 # Obviously, weather modeling is not actually this easy, but the following code shows how to:
 # * access data via the Metis Machine data engine
 # * transform those data using a deep learning model
@@ -17,7 +20,7 @@ import pandas as pd
 # Any data intake or model project on the platform begins by initializing the Skafos SDK.
 # This allows your task to access the resources of the platform, as well as ensures proper health monitoring.
 # 
-# *Unresponsive tas ks will eventually be purged.*
+# *Unresponsive tasks will eventually be purged.*
 
 from skafossdk import *
 print('Initializing the SDK connection')
