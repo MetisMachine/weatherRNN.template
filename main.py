@@ -1,8 +1,5 @@
 # # Weather Prediction Example
-# This template shows how to fetch weather data for a particular zip code
-# from the Metis Machine data engine, 
-# and then use those data to train a dummy 
-# [recurrent neural network](https://en.wikipedia.org/wiki/Recurrent_neural_network) that will predict some aspect of the weather from the historical time series at that location.
+# This template shows how to fetch weather data for a particular zip code from the Metis Machine data engine, and then use those data to train a dummy [recurrent neural network](https://en.wikipedia.org/wiki/Recurrent_neural_network) that will predict some aspect of the weather from the historical time series at that location.
 # Obviously, weather modeling is not actually this easy, but the following code shows how to:
 # * access data via the Metis Machine data engine
 # * transform those data using a deep learning model
@@ -211,15 +208,14 @@ eval_data['day'] = eval_data.index
 
 eval_data['tavg'] = 2. * eval_data['tavg_norm'] * weather_features['tavg'].std() + weather_features['tavg'].mean() 
 
-
 # # Persist Predictions
 
 # define the schema for this dataset
 schema = {
     "table_name": "rnn_weather_predictions",
     "options": {
-        "primary_key": ["day", "actual"],
-        "order_by": ["actual asc"]
+        "primary_key": ["day", "series"],
+        "order_by": ["series asc"]
     },
     "columns": {
         "day": "int",
@@ -232,7 +228,7 @@ schema = {
 data_out = eval_data.dropna().drop('tavg_norm', axis=1).to_dict(orient='records')
 
 
-dataresult = skafos.engine.save(schema, data_out).result()
+skafos.engine.save(schema, data_out).result()
 
 
 # ## Accessing persisted data

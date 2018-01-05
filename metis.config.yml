@@ -1,6 +1,7 @@
 project_token: 4ae8584acef58077a1ced0ab 
 name: weatherRNN.template
 language: python
+entrypoint: main.py
 environment:
   - key: value
   
