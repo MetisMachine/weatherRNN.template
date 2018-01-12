@@ -16,7 +16,7 @@ import pandas as pd
 # ## Access weather data using the Metis Machine SDK
 # Any data intake or model project on the platform begins by initializing the Skafos SDK.
 # This allows your task to access the resources of the platform, as well as ensures proper health monitoring.
-# 
+#
 # *Unresponsive tasks will eventually be purged.*
 
 from skafossdk import *
@@ -70,7 +70,7 @@ weather.sort_index(inplace=True)
 
 # ## Feature Engineering
 # These are not necessarilly excellent features, but simply illustrate a common step in the predictive process.
-# 
+#
 # * length of day
 # * average temperature
 # * change in average temperature
@@ -137,7 +137,7 @@ y_test = torch.autograd.Variable(
 class WeatherNet(torch.nn.Module):
     hidden_layers = 2
     hidden_size = 6
-    
+
     def __init__(self):
         super(WeatherNet, self).__init__()
         # use a small hidden layer since we have such narrow inputs
@@ -175,7 +175,7 @@ for i in range(120):
         out, hidden = model(x_train, hidden)
         loss = criterion(out, y_train)
         if i % 10 == 0:
-            print('{:%H:%M} epoch {} loss: {}'.format(datetime.now(), i, loss.data.numpy()[0]))
+            print('{:%H:%M:%S} epoch {} loss: {}'.format(datetime.now(), i, loss.data.numpy()[0]), flush=True)
         loss.backward()
         return loss
     optimizer.step(closure)
@@ -206,7 +206,7 @@ eval_data['day'] = eval_data.index
 # weather_norm = weather_features.apply(lambda c: 0.5 * (c - c.mean()) / c.std())
 # ```
 
-eval_data['tavg'] = 2. * eval_data['tavg_norm'] * weather_features['tavg'].std() + weather_features['tavg'].mean() 
+eval_data['tavg'] = 2. * eval_data['tavg_norm'] * weather_features['tavg'].std() + weather_features['tavg'].mean()
 
 # # Persist Predictions
 
